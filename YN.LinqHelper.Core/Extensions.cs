@@ -32,12 +32,18 @@ namespace YN.LinqHelper.Core
                     previous = enumerator.Current;
                 }
             }
-
+            
             public bool TryFirst(Func<T, bool> predicate, out T result)
             {
                 result = source.FirstOrDefault(predicate);
                 return !EqualityComparer<T>.Default.Equals(result, default);
             }
+        }
+
+        extension<T>(T value)
+        {
+            public IEnumerable<T> Singleton() =>
+                [value];
         }
     }
 }
