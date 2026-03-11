@@ -38,6 +38,9 @@ namespace YN.LinqHelper.Core
                 result = source.FirstOrDefault(predicate);
                 return !EqualityComparer<T>.Default.Equals(result, default);
             }
+
+            public bool TryFirstI(Func<T, bool> predicate, out (T Item, int Index) result) =>
+                source.Select((x, i) => (x, i)).TryFirst(x => predicate(x.Item1), out result);
         }
 
         extension<T>(T value)
